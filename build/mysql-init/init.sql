@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS scraper;
+
 CREATE DATABASE scraper character set utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE scraper.products (
@@ -7,7 +9,7 @@ CREATE TABLE scraper.products (
     price INT NOT NULL,
     description TEXT NOT NULL,
     url VARCHAR(255) NOT NULL,
-    insertion_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     KEY url (url) USING BTREE,
     UNIQUE KEY unique_url (url) USING BTREE,
     PRIMARY KEY (id)

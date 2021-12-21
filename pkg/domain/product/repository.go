@@ -15,7 +15,7 @@ type repository struct {
 }
 
 type Repository interface {
-	InsertProductData(data Entity) error
+	InsertProductData(data *Entity) error
 	GetProductData(url string) (*Entity, error)
 }
 
@@ -26,8 +26,8 @@ func NewRepository(db database.Database) Repository {
 	}
 }
 
-func (r *repository) InsertProductData(data Entity) error {
-	_, err := r.db.Exec(r.queries["get-data"], data.Title, data.ImageURL, data.Price, data.Description, data.URL)
+func (r *repository) InsertProductData(data *Entity) error {
+	_, err := r.db.Exec(r.queries["insert-data"], data.Title, data.ImageURL, data.Price, data.Description, data.URL)
 	return err
 }
 

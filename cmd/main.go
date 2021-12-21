@@ -8,6 +8,7 @@ import (
 	"product-scraping/pkg/database"
 	"product-scraping/pkg/domain/product"
 	"product-scraping/pkg/handlers"
+	"product-scraping/pkg/scraper"
 )
 
 func main() {
@@ -16,8 +17,14 @@ func main() {
 		log.Fatal(err)
 	}
 
+	scraperLibrary, err := scraper.NewScraper()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	productRepository := product.NewRepository(db)
-	productUseCase := product.NewUseCase(productRepository)
+
+	productUseCase := product.NewUseCase(productRepository, scraperLibrary)
 
 	router := chi.NewRouter()
 	router.Use(middleware.Recoverer)

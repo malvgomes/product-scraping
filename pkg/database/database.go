@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"github.com/go-gorp/gorp"
 	_ "github.com/go-sql-driver/mysql"
+	"log"
+	"time"
 )
 
 type Database interface {
@@ -11,12 +13,12 @@ type Database interface {
 	Exec(string, ...interface{}) (sql.Result, error)
 }
 
-type dbWrapper struct {
-	dbMap *gorp.DbMap
+type DbWrapper struct {
+	DbMap *gorp.DbMap
 }
 
-func (d *dbWrapper) SelectOne(i interface{}, s string, args ...interface{}) error {
-	err := d.dbMap.SelectOne(i, s, args...)
+func (d *DbWrapper) SelectOne(i interface{}, s string, args ...interface{}) error {
+	err := d.DbMap.SelectOne(i, s, args...)
 	if err != nil && err != sql.ErrNoRows {
 		return err
 	}
@@ -24,8 +26,8 @@ func (d *dbWrapper) SelectOne(i interface{}, s string, args ...interface{}) erro
 	return nil
 }
 
-func (d *dbWrapper) Exec(s string, args ...interface{}) (sql.Result, error) {
-	result, err := d.dbMap.Exec(s, args...)
+func (d *DbWrapper) Exec(s string, args ...interface{}) (sql.Result, error) {
+	result, err := d.DbMap.Exec(s, args...)
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -39,10 +41,17 @@ func Open() (Database, error) {
 		return nil, err
 	}
 
+	err = conn.Ping()
+	for err != nil {
+		log.Println("Database is not yet ready. Trying again")
+		time.Sleep(time.Second * 5)
+		err = conn.Ping()
+	}
+
 	dbMap := &gorp.DbMap{
 		Db:      conn,
 		Dialect: gorp.MySQLDialect{},
 	}
 
-	return &dbWrapper{dbMap: dbMap}, nil
+	return &DbWrapper{DbMap: dbMap}, nil
 }

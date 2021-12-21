@@ -1,5 +1,130 @@
 {
+  "www.submarino.com.br": {
+    "title": {
+      "tag": "meta[property='og:title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "meta[property='og:image']",
+      "attr": "content"
+    },
+    "price": {
+      "tag": "div.src__BestPrice-sc-1jnodg3-5",
+      "attr": ""
+    },
+    "description": {
+      "tag": "meta[property='og:description']",
+      "attr": "content"
+    }
+  },
+  "www.magazineluiza.com.br": {
+    "title": {
+      "tag": "meta[property='og:title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "img.showcase-product__big-img",
+      "attr": "src"
+    },
+    "price": {
+      "tag": "span.price-template__text",
+      "attr": ""
+    },
+    "description": {
+      "tag": "meta[property='og:description']",
+      "attr": "content"
+    }
+  },
+  "www.zattini.com.br": {
+    "title": {
+      "tag": "meta[property='og:title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "meta[property='og:image']",
+      "attr": "content"
+    },
+    "price": {
+      "tag": "div.default-price",
+      "attr": ""
+    },
+    "description": {
+      "tag": "meta[property='og:description']",
+      "attr": "content"
+    }
+  },
+  "www.amazon.com.br": {
+    "title": {
+      "tag": "span#productTitle",
+      "attr": ""
+    },
+    "image": {
+      "tag": "img#landingImage",
+      "attr": "src"
+    },
+    "price": {
+      "tag": "span.apexPriceToPay",
+      "child": "span.a-offscreen",
+      "attr": ""
+    },
+    "description": {
+      "tag": "div#productDescription",
+      "attr": ""
+    }
+  },
+  "www.americanas.com.br": {
+    "title": {
+      "tag": "meta[property='og:title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "meta[property='og:image']",
+      "attr": "content"
+    },
+    "price": {
+      "tag": "div.src__BestPrice-sc-1jvw02c-5",
+      "attr": ""
+    },
+    "description": {
+      "tag": "meta[property='og:description']",
+      "attr": "content"
+    }
+  },
   "www.saraiva.com.br": {
-    "image_tag": ["#product-1-item", "img[src]"]
+    "title": {
+      "tag": "meta[property='og:title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "meta[property='og:image']",
+      "attr": "content"
+    },
+    "price": {
+      "tag": "meta[property='product:price:amount']",
+      "attr": "content"
+    },
+    "description": {
+      "tag": "meta[property='og:description']",
+      "attr": "content"
+    }
+  },
+  "www.test.com.br": {
+    "title": {
+      "tag": "meta[property='title']",
+      "attr": "content"
+    },
+    "image": {
+      "tag": "div.batata",
+      "child": "strong.macarrao",
+      "attr": ""
+    },
+    "price": {
+      "tag": "div#feijao",
+      "attr": ""
+    },
+    "description": {
+      "tag": "meta[property='description']",
+      "attr": "content"
+    }
   }
 }

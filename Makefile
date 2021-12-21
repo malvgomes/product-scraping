@@ -4,5 +4,5 @@ up:
 down:
 	docker-compose down -v
 
-mysql:
-	docker-compose -f ./docker-compose.yml up --build mysql
+db:
+	docker-compose -f ./docker-compose.yml up --build db

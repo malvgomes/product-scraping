@@ -62,4 +62,5 @@ Este projeto consiste na implmentação de uma API de busca de dados em uma URL 
 - Os sites suportados são: `www.submarino.com.br`, `www.magazineluiza.com.br`, `www.zattini.com.br`, `www.amazon.com.br`, `www.americanas.com.br` e `www.saraiva.com.br`
 - Alguns sites podem retornar código `403` no scraping, se isso ocorrer basta tentar novamente ou testar outra URL
 - O banco pode demorar alguns segundos para inicializar, isso é tratado pela aplicação. Basta aguardar o log `Listening on port :3000` aparecer
+- Já existem algumas entradas no banco, que são inseridas na inicialização do container. Teste as URLs `https://www.amazon.com.br/dp/B07SG8F1QF?ref=MarsFS_Echo_show8` e `https://www.saraiva.com.br/a-rainha-vermelha-vol-1-8884222/p` e veja que são buscadas do banco, e não do scraper
 

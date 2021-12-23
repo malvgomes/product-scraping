@@ -25,6 +25,9 @@ func NewUseCase(repository Repository, s scraper.Scraper) UseCase {
 	}
 }
 
+// ParseProductURL busca os dados da URL no banco
+// Caso existam e tenham sido inseridos há menos de uma hora, retorna os dados
+// Caso contrário, faz o scrape dos dados, insere (ou atualiza) no banco e retorna para o usuário
 func (u *usecase) ParseProductURL(productURL string) (*Entity, error) {
 	parsedURL, err := url.Parse(productURL)
 	if err != nil {

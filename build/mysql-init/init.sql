@@ -21,7 +21,7 @@ INSERT INTO scraper.products (title, image_url, price, description, url) VALUES
         'https://m.media-amazon.com/images/I/61xX62L2hGL._AC_SY300_SX300_.jpg',
         66405,
         '',
-        'https://www.amazon.com.br/dp/B07SG8F1QF?ref=MarsFS_Echo_show8'
+        'https://www.amazon.com.br/dp/B07SG8F1QF'
     ),
     (
         'A Rainha Vermelha - Vol. 1',

@@ -23,6 +23,7 @@ func (p *payload) IsValid() bool {
 	return p.URL != ""
 }
 
+// ParseProduct trata o payload, verificando se é válido e retorna um json dos dados já tratados pelo UseCase
 func (p *ProductHandler) ParseProduct(w http.ResponseWriter, r *http.Request) {
 	var pl payload
 

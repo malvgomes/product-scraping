@@ -11,6 +11,7 @@ import (
 	"product-scraping/pkg/scraper"
 )
 
+// Inicializa todos os recursos utilizados pela api: db, scraper, repository e usecase, e inicia um handler na porta 3000
 func main() {
 	db, err := database.Open()
 	if err != nil {
@@ -27,11 +28,16 @@ func main() {
 	productUseCase := product.NewUseCase(productRepository, scraperLibrary)
 
 	router := chi.NewRouter()
+
+	// Retorna HTTP 500 em caso de panics, em vez de encerrar a aplicação
 	router.Use(middleware.Recoverer)
+
+	// Cria logs da requisição: código de resposta, tempo de execução e tamanho da resposta
 	router.Use(middleware.Logger)
 
 	productHandler := handlers.NewProductHandler(productUseCase)
 
+	// Registra o endpoint `product`, e o mapeia para o método ParseProduct do handler
 	router.Post("/product", productHandler.ParseProduct)
 
 	log.Println("Listening on port :3000")

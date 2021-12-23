@@ -16,6 +16,7 @@ var nondigit = regexp.MustCompile(`\D`)
 
 var ErrDomainNotSupported = errors.New("error: domain is not supported")
 
+// Mapeia o arquivo `scraper-config.json` para um array de bytes. Referência: https://pkg.go.dev/embed
 //go:embed scraper-config.json
 var config []byte
 
@@ -23,6 +24,8 @@ type Scraper interface {
 	ScrapeURL(host, productURL string) (string, string, string, string, error)
 }
 
+// NewScraper mapeia o array de bytes config para a struct scraper, criada logo abaixo. Como a struct scraper implementa o método
+// ScrapeURL, ela pode ser utilizada como a interface Scraper
 func NewScraper() (Scraper, error) {
 	var s scraper
 	err := json.Unmarshal(config, &s)
@@ -50,6 +53,7 @@ func (s *scraper) ScrapeURL(host, productURL string) (string, string, string, st
 		colly.DetectCharset(),
 	)
 
+	// Gera um UserAgent aleatório, para tentar burlar respostas 403 de alguns sites
 	extensions.RandomUserAgent(c)
 	extensions.Referer(c)
 
@@ -77,6 +81,11 @@ func (s *scraper) ScrapeURL(host, productURL string) (string, string, string, st
 	return title, image, price, description, nil
 }
 
+// registerCallback utiliza as configs presentes no arquivo scraper-config.json para verificar em qual elemento do
+// HTML de resposta o atributo desejado s encontra.
+// - O primeiro elemento a ser procurado é o contido na chave `tag` do json. Se a chave `attr` for diferente de "",
+// busca o conteúdo nesse atributo. Caso contrário, busca o texto contido entre as chaves.
+// - Caso o parâmetro `child` seja passado, busca o texto contido no elemento filho ao buscado na chave `tag`
 func registerCallback(c *colly.Collector, element map[string]string, value *string) {
 	c.OnHTML(element["tag"], func(e *colly.HTMLElement) {
 		if attr := element["attr"]; attr != "" {
@@ -89,13 +98,17 @@ func registerCallback(c *colly.Collector, element map[string]string, value *stri
 	})
 }
 
+// sanitizeOutput "limpa" os dados obtidos no scraping.
+// - Corrige protocolo da imagem enviada, caso venha vazio
+// - Remove espaços no início e final do título e descrição
+// - Remove quaisquer caracteres que não sejam dígitos do preço
 func sanitizeOutput(title, image, price, description *string) error {
 	parsedImageURL, err := url.Parse(*image)
 	if err != nil {
 		return err
 	}
 
-	if parsedImageURL.Scheme == "" || parsedImageURL.Scheme == "http" {
+	if parsedImageURL.Scheme == "" {
 		parsedImageURL.Scheme = "https"
 	}
 

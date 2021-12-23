@@ -19,6 +19,7 @@ type DbWrapper struct {
 
 func (d *DbWrapper) SelectOne(i interface{}, s string, args ...interface{}) error {
 	err := d.DbMap.SelectOne(i, s, args...)
+	// Não encontrar uma entrada no banco não é um erro
 	if err != nil && err != sql.ErrNoRows {
 		return err
 	}
@@ -28,6 +29,7 @@ func (d *DbWrapper) SelectOne(i interface{}, s string, args ...interface{}) erro
 
 func (d *DbWrapper) Exec(s string, args ...interface{}) (sql.Result, error) {
 	result, err := d.DbMap.Exec(s, args...)
+	// Não encontrar uma entrada no banco não é um erro
 	if err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
@@ -35,6 +37,7 @@ func (d *DbWrapper) Exec(s string, args ...interface{}) (sql.Result, error) {
 	return result, nil
 }
 
+// Open faz a conexão com o banco de dados, esperando até que o banco termine sua inicialização
 func Open() (Database, error) {
 	conn, err := sql.Open("mysql", "root:1234@tcp(db:3306)/scraper?loc=Local&parseTime=true&charset=utf8mb4")
 	if err != nil {

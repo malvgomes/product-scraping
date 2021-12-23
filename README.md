@@ -35,14 +35,14 @@ Este projeto consiste na implmentação de uma API de busca de dados em uma URL 
 - Mysql versão 5.7.36
 
 ## Bibliotecas utilizadas
-###API
+### API
 - https://github.com/gocolly/colly - Faz o scraping das URLs
 - https://github.com/go-gorp/gorp - Faz o mapeamento das colunas do banco para `structs` do Go
 - https://github.com/go-chi/chi - Proporciona uma maneira simples de construir APIs REST em Go
 - https://github.com/go-sql-driver/mysql Driver MYSQL para Go
 - https://github.com/nleof/goyesql - Faz o mapeamento de um arquivo `.sql` para um `map[string]string` em Go
 
-###Testes
+### Testes
 - https://github.com/stretchr/testify - Conjunto de ferramentas para testes, como o `assert`, que foi utilizado no projeto
 - https://github.com/DATA-DOG/go-sqlmock - Simula a conexão com o banco de dados
 - https://github.com/golang/mock - Permite a criação de mocks das interfaces utilizadas no projeto
@@ -59,3 +59,7 @@ Este projeto consiste na implmentação de uma API de busca de dados em uma URL 
 - `make db`: acessa o container do mysql, onde é possível executar queries e verificar se os dados foram realmente inseridos 
 - `make test` : executa os testes unitários do projeto
 - Envie requisições `POST` para o endpoint `localhost:3000/product`, como exemplificado neste documento e faça testes :). Execute o comando `make db` e verifique se os dados foram inseridos corretamente
+- Os sites suportados são: `www.submarino.com.br`, `www.magazineluiza.com.br`, `www.zattini.com.br`, `www.amazon.com.br`, `www.americanas.com.br` e `www.saraiva.com.br`
+- Alguns sites podem retornar código `403` no scraping, se isso ocorrer basta tentar novamente ou testar outra URL
+- O banco pode demorar alguns segundos para inicializar, isso é tratado pela aplicação. Basta aguardar o log `Listening on port :3000` aparecer
+

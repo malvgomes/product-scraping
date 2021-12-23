@@ -47,3 +47,15 @@ Este projeto consiste na implmentação de uma API de busca de dados em uma URL 
 - https://github.com/DATA-DOG/go-sqlmock - Simula a conexão com o banco de dados
 - https://github.com/golang/mock - Permite a criação de mocks das interfaces utilizadas no projeto
 - https://github.com/jarcoal/httpmock - Permite o mock de respostas a requisições HTTP
+
+# Ferramentas necessárias
+- make
+- docker-compose
+- docker
+
+# Como executar
+- `make up`: inicia os containers e a aplicação
+- `make down`: remove os containers
+- `make db`: acessa o container do mysql, onde é possível executar queries e verificar se os dados foram realmente inseridos 
+- `make test` : executa os testes unitários do projeto
+- Envie requisições `POST` para o endpoint `localhost:3000/product`, como exemplificado neste documento e faça testes :). Execute o comando `make db` e verifique se os dados foram inseridos corretamente

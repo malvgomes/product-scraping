@@ -29,8 +29,3 @@ services:
     volumes:
       - ./build/mysql-init:/docker-entrypoint-initdb.d
     restart: always
-    healthcheck:
-      test: [ "CMD-SHELL", '/usr/bin/mysql --user=root --password=1234 --execute "SHOW DATABASE;"' ]
-      interval: 10s
-      timeout: 2s
-      retries: 10

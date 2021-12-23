@@ -36,7 +36,7 @@ func (d *DbWrapper) Exec(s string, args ...interface{}) (sql.Result, error) {
 }
 
 func Open() (Database, error) {
-	conn, err := sql.Open("mysql", "root:1234@tcp(localhost:3306)/scraper?loc=Local&parseTime=true&charset=utf8mb4")
+	conn, err := sql.Open("mysql", "root:1234@tcp(db:3306)/scraper?loc=Local&parseTime=true&charset=utf8mb4")
 	if err != nil {
 		return nil, err
 	}
